@@ -1,63 +1,80 @@
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
-export default {
-  darkMode: ["class"],
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+const config: Config = {
+  content: ["./components/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
+    fontFamily: {
+      sans: ["var(--font-sans)", ...fontFamily.sans],
+    },
     extend: {
-      colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
+      width: {
+        "128": "32rem",
+        "144": "36rem",
+        "160": "40rem",
+        "176": "44rem",
+        "192": "48rem",
+        "208": "52rem",
+        "224": "56rem",
+        "256": "64rem",
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      colors: {
+        warning: {
+          100: "#FFF4E4",
+          500: "#D9CA7B",
+          900: "#9E8E00",
+        },
+        error: {
+          100: "#FFEEEF",
+          500: "#F55C67",
+          900: "#DD224F",
+        },
+        gray: {
+          100: "#F3F5F7",
+          200: "#E2E5E7",
+          300: "#D4D7DD",
+          400: "#CBCBCF",
+          500: "#ABAFB5",
+          600: "#989DA5",
+          700: "#747A81",
+          800: "#5A5F62",
+          900: "#1F2324",
+        },
+        background: "#ffffff",
+        foreground: "#030712",
+        primary: {
+          default: "#0A317F",
+          50: "#D6E1F8",
+          100: "#ADC7FA",
+          300: "#84A6EB",
+          500: "#385EAB",
+          700: "#0A317F",
+          900: "#0C224E",
+        },
+        "primary-foreground": "#f9fafb",
+        border: "#e5e7eb",
+        input: "#e5e7eb",
+        ring: "#002060", // same as primary
+        secondary: "#f3f4f6",
+        "secondary-foreground": "#111827",
+        destructive: "#FFF5F7",
+        "destructive-foreground": "#dd224f",
+        "destructive-border": "#F4BAC8",
+        "destructive-hover": "#FFEAEF",
+        muted: "#f3f4f6",
+        "muted-foreground": "#6b7280",
+        accent: "#f3f4f6",
+        "accent-foreground": "#111827",
+        popover: "#ffffff",
+        "popover-foreground": "#030712",
+        tooltip: "#374151",
+        "tooltip-foreground": "#ffffff",
+        card: "#ffffff",
+        "card-foreground": "#030712",
+        white: "#ffffff",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
+export default config;
