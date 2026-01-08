@@ -6,9 +6,12 @@ import { useLayoutEffect, useRef, useState } from "react"
 export default function Home() {
   const inputRef = useRef<HTMLDivElement>(null)
   const caretRef = useRef(0)
+  const isComposing = useRef(false)
   const [input, setInput] = useState("")
 
   const handleInput = () => {
+    if (isComposing.current) return
+
     const el = inputRef.current
     if (!el) return
 
@@ -16,7 +19,7 @@ export default function Home() {
     setInput(el.innerText)
   }
 
-  // DOM 更新後に caret 復元
+  // DOM更新後にcaret復元
   useLayoutEffect(() => {
     if (!inputRef.current) return
     setCaretOffset(inputRef.current, caretRef.current)
@@ -29,6 +32,13 @@ export default function Home() {
         contentEditable
         suppressContentEditableWarning
         ref={inputRef}
+        onCompositionStart={() => {
+          isComposing.current = true
+        }}
+        onCompositionEnd={() => {
+          isComposing.current = false
+          handleInput()
+        }}
         onInput={handleInput}
         className="h-64 w-full bg-white text-black"
       >
