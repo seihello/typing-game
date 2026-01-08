@@ -9,6 +9,9 @@ export default function Home() {
   const isComposing = useRef(false)
   const [input, setInput] = useState("")
 
+  const targetSentence =
+    "効率だけを追い求める社会では、人間の尊厳と想像力が静かに削られていく。"
+
   const handleInput = () => {
     if (isComposing.current) return
 
@@ -27,7 +30,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center gap-y-8 p-4 text-white">
-      <TargetSentence />
+      <TargetSentence value={targetSentence} />
       <div
         contentEditable
         suppressContentEditableWarning
@@ -42,7 +45,7 @@ export default function Home() {
         onInput={handleInput}
         className="h-64 w-full bg-white text-black"
       >
-        {input}
+        {renderColoredText(targetSentence, input)}
       </div>
     </div>
   )
@@ -81,4 +84,29 @@ function setCaretOffset(root: HTMLElement, offset: number) {
   range.collapse(true)
   sel.removeAllRanges()
   sel.addRange(range)
+}
+
+function renderColoredText(target: string, input: string) {
+  // const max = Math.max(target.length, input.length)
+  // return Array.from({ length: max }).map((_, i) => {
+  //   const t = target[i]
+  //   const v = input[i]
+  //   let color = "#999"
+  //   if (v != null) {
+  //     color = v === t ? "green" : "red"
+  //   }
+  //   return (
+  //     <span key={i} style={{ color }}>
+  //       {v ?? t ?? ""}
+  //     </span>
+  //   )
+  // })
+
+  return Array.from({ length: input.length }).map((_, i) => {
+    return (
+      <span key={i} style={{ color: input[i] === "あ" ? "red" : "black" }}>
+        {input[i]}
+      </span>
+    )
+  })
 }
