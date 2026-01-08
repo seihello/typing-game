@@ -12,7 +12,7 @@ type Props = {
 export default function InputArea({ value, setValue }: Props) {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: "<p>aaaa</p>",
+    content: "",
     immediatelyRender: false,
     onUpdate: ({ editor }) => {
       setValue(editor.getText())
