@@ -13,7 +13,11 @@ export default function Home() {
   return (
     <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center gap-y-8 p-4 text-white">
       <TargetSentence value={targetSentence} />
-      <InputArea value={input} setValue={setInput} />
+      <InputArea
+        value={input}
+        setValue={setInput}
+        targetSentence={targetSentence}
+      />
     </div>
   )
 }

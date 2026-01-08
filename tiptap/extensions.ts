@@ -18,6 +18,14 @@ export const SpanColor = Mark.create({
           return { style: attributes.style }
         },
       },
+      "data-char-id": {
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-char-id"),
+        renderHTML: (attributes) => {
+          if (!attributes["data-char-id"]) return {}
+          return { "data-char-id": attributes["data-char-id"] }
+        },
+      },
     }
   },
   renderHTML({ HTMLAttributes }) {
