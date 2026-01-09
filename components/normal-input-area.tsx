@@ -1,6 +1,7 @@
 "use client"
 
-import { Dispatch, SetStateAction, useRef, useState } from "react"
+import { Textarea } from "@/components/ui/textarea"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 
 type Props = {
   input: string
@@ -11,22 +12,26 @@ export default function NormalInputArea({ input, setInput }: Props) {
   const [value, setValue] = useState(input)
   const isComposing = useRef(false)
 
+  useEffect(() => {
+    if (!isComposing.current) {
+      setInput(value)
+    }
+  }, [setInput, value])
+
+  console.log("NormalInputArea")
+
   return (
-    <textarea
-      className="h-64 w-full bg-white p-2 text-2xl font-bold text-black outline-none"
+    <Textarea
+      className="h-64 w-full bg-white p-2 text-2xl font-bold text-black outline-none md:text-2xl"
       value={value}
+      onChange={(e) => setValue(e.target.value)}
       onCompositionStart={() => {
         isComposing.current = true
       }}
-      onCompositionEnd={() => {
+      onCompositionEnd={(e) => {
         isComposing.current = false
-        setInput(value)
-      }}
-      onChange={(e) => {
-        setValue(e.target.value)
-        if (!isComposing.current) {
-          setInput(e.target.value)
-        }
+        // 確定した瞬間の値を親に反映
+        setInput(e.currentTarget.value)
       }}
     />
   )
