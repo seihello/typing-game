@@ -11,11 +11,16 @@ type Props = {
   targetSentence: string
 }
 
-export default function InputArea({ value, setValue, targetSentence }: Props) {
+export default function DynamicInputArea({
+  value,
+  setValue,
+  targetSentence,
+}: Props) {
   const isComposing = useRef(false)
 
   // handleInputをuseCallbackでラップし、エディタを引数で受け取る
   const handleInput = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (currentEditor: any) => {
       if (!currentEditor || isComposing.current) return
 

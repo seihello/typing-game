@@ -1,6 +1,6 @@
 "use client"
 
-import InputArea from "@/components/input-area"
+import StaticInputArea from "@/components/static-input-area"
 import TargetSentence from "@/components/target-sentence"
 import { useState } from "react"
 
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center gap-y-8 p-4 text-white">
       <TargetSentence value={targetSentence} />
-      <InputArea
+      <StaticInputArea
         value={input}
         setValue={setInput}
         targetSentence={targetSentence}
