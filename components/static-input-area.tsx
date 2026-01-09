@@ -1,6 +1,6 @@
 "use client"
 
-import { SpanColor } from "@/tiptap/extensions"
+import { CharacterColorHighlighter } from "@/tiptap/extensions"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { Dispatch, SetStateAction, useRef } from "react"
@@ -19,7 +19,12 @@ export default function StaticInputArea({
   const isComposing = useRef(false)
 
   const editor = useEditor({
-    extensions: [StarterKit, SpanColor],
+    extensions: [
+      StarterKit,
+      CharacterColorHighlighter.configure({
+        targetSentence: targetSentence,
+      }),
+    ],
     content: "",
     immediatelyRender: false,
     editorProps: {
