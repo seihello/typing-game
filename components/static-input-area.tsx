@@ -70,19 +70,12 @@ export default function StaticInputArea({
       if (coloredText === editor.getHTML()) return
 
       // カーソル位置の保持
-      const { from, to } = editor.state.selection
+      const { to } = editor.state.selection
 
-      // // 更新処理
-      // editor.commands.setContent(coloredText, { emitUpdate: false })
+      // 更新処理
+      editor.commands.setContent(coloredText, { emitUpdate: false })
 
-      // editor.commands.setTextSelection(to)
-
-      editor
-        .chain()
-        .focus()
-        .setContent(coloredText, { emitUpdate: false }) // 第2引数をfalseにすると更新イベントを抑制
-        .setTextSelection({ from, to }) // 元の位置にセット
-        .run()
+      editor.commands.setTextSelection(to)
 
       // 改行が挿入されるのを防ぐ（Enterで更新処理をする場合）
       event.preventDefault()
