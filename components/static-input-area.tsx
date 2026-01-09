@@ -1,6 +1,6 @@
 "use client"
 
-import { CharacterColorHighlighter } from "@/tiptap/extensions"
+import { SpanColor } from "@/tiptap/extensions"
 import { EditorContent, useEditor } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import { Dispatch, SetStateAction, useRef } from "react"
@@ -19,12 +19,7 @@ export default function StaticInputArea({
   const isComposing = useRef(false)
 
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      CharacterColorHighlighter.configure({
-        targetSentence: targetSentence,
-      }),
-    ],
+    extensions: [StarterKit, SpanColor],
     content: "",
     immediatelyRender: false,
     editorProps: {
@@ -40,7 +35,7 @@ export default function StaticInputArea({
   })
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" && !event.nativeEvent.isComposing) {
+    if (event.key === "Enter" && !isComposing.current) {
       if (!editor) {
         return
       }
@@ -60,7 +55,7 @@ export default function StaticInputArea({
           const matchesTarget =
             i < targetSentence.length && char === targetSentence[i]
           return matchesTarget
-            ? char
+            ? `<span data-char-id="${i}" style="color: black;">${char}</span>`
             : `<span data-char-id="${i}" style="color: red;">${char}</span>`
         })
         .join("")
