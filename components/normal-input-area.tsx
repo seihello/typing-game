@@ -18,7 +18,11 @@ export default function NormalInputArea({ input, setInput }: Props) {
     }
   }, [setInput, value])
 
-  console.log("NormalInputArea")
+  useEffect(() => {
+    if (input === "") {
+      setValue("")
+    }
+  }, [input])
 
   return (
     <Textarea

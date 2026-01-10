@@ -32,6 +32,10 @@ export default function SingleGame({ complete }: Props) {
     }
   }, [input, target, index, complete])
 
+  useEffect(() => {
+    setInput("")
+  }, [index])
+
   if (target.length === 0) return
 
   return (
