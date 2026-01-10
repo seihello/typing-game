@@ -4,6 +4,7 @@ import NormalInputArea from "@/components/normal-input-area"
 import TargetSentence from "@/components/target-sentence"
 import { generateSentence } from "@/lib/openai/generate-sentence"
 import { useEffect, useState } from "react"
+import { HashLoader } from "react-spinners"
 
 type Props = {
   complete: () => void
@@ -23,6 +24,7 @@ export default function SingleGame({ complete }: Props) {
 
   useEffect(() => {
     if (target.length === 0) return
+
     if (input === target[index]) {
       if (index === target.length - 1) {
         complete()
@@ -36,12 +38,18 @@ export default function SingleGame({ complete }: Props) {
     setInput("")
   }, [index])
 
-  if (target.length === 0) return
-
   return (
     <div className="flex flex-col items-center gap-y-8">
-      <TargetSentence target={target[index]} input={input} />
-      <NormalInputArea input={input} setInput={setInput} />
+      {target.length === 0 ? (
+        <div className="flex h-64 flex-col justify-center">
+          <HashLoader size={64} color="#FFFFFF" />
+        </div>
+      ) : (
+        <>
+          <TargetSentence target={target[index]} input={input} />
+          <NormalInputArea input={input} setInput={setInput} />
+        </>
+      )}
     </div>
   )
 }
