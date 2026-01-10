@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center gap-y-8 px-2 py-8 text-white">
+    <div className="mx-auto min-h-screen max-w-4xl px-2 py-8 text-white">
       {status === "Start" ? (
         <Button>Start</Button>
       ) : status === "InProgress" ? (

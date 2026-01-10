@@ -10,27 +10,33 @@ type Props = {
 }
 
 export default function SingleGame({ complete }: Props) {
-  const [target, setTarget] = useState("")
+  const [target, setTarget] = useState<string[]>([])
   const [input, setInput] = useState("")
+  const [index, setIndex] = useState(0)
 
   useEffect(() => {
     ;(async () => {
-      const sentence = await generateSentence()
+      const sentence = await generateSentence(3)
       setTarget(sentence)
     })()
   }, [])
 
   useEffect(() => {
-    if (target && input === target) {
-      complete()
+    if (target.length === 0) return
+    if (input === target[index]) {
+      if (index === target.length - 1) {
+        complete()
+      } else {
+        setIndex((prev) => prev + 1)
+      }
     }
-  }, [input, target, complete])
+  }, [input, target, index, complete])
 
-  if (!target) return
+  if (target.length === 0) return
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center gap-y-8 px-2 py-8 text-white">
-      <TargetSentence target={target} input={input} />
+    <div className="flex flex-col items-center gap-y-8">
+      <TargetSentence target={target[index]} input={input} />
       <NormalInputArea input={input} setInput={setInput} />
     </div>
   )
