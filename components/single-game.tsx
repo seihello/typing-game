@@ -2,6 +2,7 @@
 
 import NormalInputArea from "@/components/normal-input-area"
 import TargetSentence from "@/components/target-sentence"
+import Timer from "@/components/timer"
 import { generateSentence } from "@/lib/openai/generate-sentence"
 import { useEffect, useState } from "react"
 import { HashLoader } from "react-spinners"
@@ -48,6 +49,7 @@ export default function SingleGame({ complete }: Props) {
         <>
           <TargetSentence target={target[index]} input={input} />
           <NormalInputArea input={input} setInput={setInput} />
+          <Timer />
         </>
       )}
     </div>
