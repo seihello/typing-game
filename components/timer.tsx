@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 
-export default function Timer() {
-  const [elapsedTime, setElapsedTime] = useState(0)
+type Props = {
+  elapsedTime: number
+  setElapsedTime: Dispatch<SetStateAction<number>>
+}
 
+export default function Timer({ elapsedTime, setElapsedTime }: Props) {
   useEffect(() => {
     const startTime = Date.now()
 
@@ -11,7 +14,7 @@ export default function Timer() {
     }, 10) // 10ms間隔で更新
 
     return () => clearInterval(timerId)
-  }, [])
+  }, [setElapsedTime])
 
   // 00:00.00 のフォーマットに変換
   const minutes = Math.floor(elapsedTime / 60000)

@@ -4,17 +4,19 @@ import NormalInputArea from "@/components/normal-input-area"
 import TargetSentence from "@/components/target-sentence"
 import Timer from "@/components/timer"
 import { generateSentence } from "@/lib/openai/generate-sentence"
+import { Result } from "@/types/result"
 import { useEffect, useState } from "react"
 import { HashLoader } from "react-spinners"
 
 type Props = {
-  complete: () => void
+  complete: (result: Result) => void
 }
 
 export default function SingleGame({ complete }: Props) {
   const [target, setTarget] = useState<string[]>([])
   const [input, setInput] = useState("")
   const [index, setIndex] = useState(0)
+  const [elapsedTime, setElapsedTime] = useState(0)
 
   useEffect(() => {
     ;(async () => {
@@ -28,12 +30,16 @@ export default function SingleGame({ complete }: Props) {
 
     if (input === target[index]) {
       if (index === target.length - 1) {
-        complete()
+        const wordCount = target.reduce(
+          (sum, sentence) => sum + sentence.length,
+          0,
+        )
+        complete({ elapsedTime, wordCount })
       } else {
         setIndex((prev) => prev + 1)
       }
     }
-  }, [input, target, index, complete])
+  }, [input, target, index, complete, elapsedTime])
 
   useEffect(() => {
     setInput("")
@@ -49,7 +55,7 @@ export default function SingleGame({ complete }: Props) {
         <>
           <TargetSentence target={target[index]} input={input} />
           <NormalInputArea input={input} setInput={setInput} />
-          <Timer />
+          <Timer elapsedTime={elapsedTime} setElapsedTime={setElapsedTime} />
         </>
       )}
     </div>
