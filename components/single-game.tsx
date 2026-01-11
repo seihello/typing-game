@@ -20,10 +20,12 @@ export default function SingleGame({ complete }: Props) {
 
   useEffect(() => {
     ;(async () => {
-      const sentence = await generateSentence(3)
-      setTarget(sentence)
+      if (target.length === 0) {
+        const sentence = await generateSentence(3)
+        setTarget(sentence)
+      }
     })()
-  }, [])
+  }, [target])
 
   useEffect(() => {
     if (target.length === 0) return
@@ -42,7 +44,9 @@ export default function SingleGame({ complete }: Props) {
   }, [input, target, index, complete, elapsedTime])
 
   useEffect(() => {
-    setInput("")
+    if (index > 0) {
+      setInput("")
+    }
   }, [index])
 
   return (

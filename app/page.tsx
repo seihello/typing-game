@@ -17,9 +17,17 @@ export default function Home() {
   }
 
   return (
-    <div className="mx-auto min-h-screen max-w-4xl px-2 py-8 text-white">
+    <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center px-2 py-8 text-white">
       {status === "Start" ? (
-        <Button>Start</Button>
+        <div className="flex h-64 items-center">
+          <Button
+            size="lg"
+            className="w-48"
+            onClick={() => setStatus("InProgress")}
+          >
+            スタート
+          </Button>
+        </div>
       ) : status === "InProgress" ? (
         <SingleGame complete={complete} />
       ) : status === "Result" && result ? (
