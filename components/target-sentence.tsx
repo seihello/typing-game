@@ -21,8 +21,6 @@ export default function TargetSentence({ target, input }: Props) {
     [input],
   )
 
-  console.log("TargetSentence")
-
   return (
     <div
       className="text-2xl font-bold"
