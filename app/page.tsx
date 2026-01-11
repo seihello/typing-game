@@ -8,7 +8,7 @@ import { useState } from "react"
 type Status = "Start" | "InProgress" | "Result"
 
 export default function Home() {
-  const [status, setStatus] = useState<Status>("InProgress")
+  const [status, setStatus] = useState<Status>("Start")
   const [result, setResult] = useState<Result>()
 
   const complete = (result: Result) => {
@@ -23,7 +23,10 @@ export default function Home() {
           <Button
             size="lg"
             className="w-48"
-            onClick={() => setStatus("InProgress")}
+            onClick={(e) => {
+              e.preventDefault()
+              setStatus("InProgress")
+            }}
           >
             スタート
           </Button>

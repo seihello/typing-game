@@ -5,7 +5,7 @@ import TargetSentence from "@/components/target-sentence"
 import Timer from "@/components/timer"
 import { generateSentence } from "@/lib/openai/generate-sentence"
 import { Result } from "@/types/result"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { HashLoader } from "react-spinners"
 
 type Props = {
@@ -18,14 +18,17 @@ export default function SingleGame({ complete }: Props) {
   const [index, setIndex] = useState(0)
   const [elapsedTime, setElapsedTime] = useState(0)
 
+  const isGeneratingSentences = useRef(false)
+
   useEffect(() => {
     ;(async () => {
-      if (target.length === 0) {
+      if (!isGeneratingSentences.current) {
+        isGeneratingSentences.current = true
         const sentence = await generateSentence(3)
         setTarget(sentence)
       }
     })()
-  }, [target])
+  }, [])
 
   useEffect(() => {
     if (target.length === 0) return
