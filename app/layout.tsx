@@ -3,7 +3,7 @@ import { Geist } from "next/font/google"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "ことたま | 変換ありタイピング",
+  title: "変換タイピングゲーム",
   description: "変換ありの日本語タイピングゲームです。",
 }
 

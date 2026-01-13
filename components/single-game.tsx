@@ -53,7 +53,7 @@ export default function SingleGame({ complete }: Props) {
   }, [index])
 
   return (
-    <div className="flex flex-col items-center gap-y-8">
+    <div className="flex w-full flex-col items-center gap-y-8">
       {target.length === 0 ? (
         <div className="flex h-64 flex-col justify-center">
           <HashLoader size={64} color="#FFFFFF" />
