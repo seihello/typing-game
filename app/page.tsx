@@ -28,7 +28,7 @@ export default function Home() {
       ) : status === "InProgress" ? (
         <SingleGame complete={complete} />
       ) : status === "Result" && result ? (
-        <ResultView result={result} />
+        <ResultView result={result} start={start} />
       ) : null}
     </div>
   )

@@ -1,12 +1,14 @@
+import { Button } from "@/components/ui/button"
 import { Result } from "@/types/result"
 
 type Props = {
   result: Result
+  start: () => void
 }
 
-export default function ResultView({ result }: Props) {
+export default function ResultView({ result, start }: Props) {
   return (
-    <div className="flex h-64 w-full flex-col items-center justify-center gap-y-4">
+    <div className="flex w-full flex-col items-center justify-center gap-y-4">
       <table className="[&_td]:px-4 [&_td]:py-2">
         <tr>
           <td className="text-right font-semibold">入力した文字数</td>
@@ -32,6 +34,9 @@ export default function ResultView({ result }: Props) {
         <h2 className="font-semibold">総合スコア</h2>
         <p className="text-6xl font-bold">{calcScore(result)}</p>
       </div>
+      <Button size="lg" className="w-60" onClick={() => start()}>
+        もう一回プレイする
+      </Button>
     </div>
   )
 }
