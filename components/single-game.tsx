@@ -55,7 +55,8 @@ export default function SingleGame({ complete }: Props) {
   return (
     <div className="flex w-full flex-col items-center gap-y-8">
       {target.length === 0 ? (
-        <div className="flex h-64 flex-col justify-center">
+        <div className="flex h-64 flex-col items-center justify-center gap-y-8">
+          <p className="text-xl font-semibold">文章を作成中...</p>
           <HashLoader size={64} color="#FFFFFF" />
         </div>
       ) : (
