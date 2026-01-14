@@ -3,7 +3,7 @@
 import NormalInputArea from "@/components/normal-input-area"
 import TargetSentence from "@/components/target-sentence"
 import Timer from "@/components/timer"
-import { generateSentence } from "@/lib/openai/generate-sentence"
+import { generateSentence } from "@/lib/generate-sentence"
 import { Result } from "@/types/result"
 import { useEffect, useRef, useState } from "react"
 import { HashLoader } from "react-spinners"
