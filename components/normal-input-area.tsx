@@ -26,7 +26,7 @@ export default function NormalInputArea({ input, setInput }: Props) {
 
   return (
     <Textarea
-      className="h-64 w-full bg-white p-2 text-2xl font-bold text-black outline-none md:text-2xl"
+      className="h-48 w-full bg-white p-2 text-2xl font-bold text-black outline-none md:text-2xl"
       value={value}
       onChange={(e) => setValue(e.target.value)}
       onCompositionStart={() => {

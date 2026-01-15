@@ -54,19 +54,24 @@ export default function SingleGame({ numSentences, complete }: Props) {
   }, [index])
 
   return (
-    <div className="flex w-full flex-col items-center gap-y-8">
+    <>
       {target.length === 0 ? (
-        <div className="flex h-64 flex-col items-center justify-center gap-y-8">
+        <div className="flex h-64 w-full flex-col items-center justify-center gap-y-8">
           <p className="text-xl font-semibold">文章を作成中...</p>
           <HashLoader size={64} color="#FFFFFF" />
         </div>
       ) : (
-        <>
+        <div className="flex w-full flex-col items-center gap-y-8">
           <TargetSentence target={target[index]} input={input} />
-          <NormalInputArea input={input} setInput={setInput} />
+          <div className="flex w-full flex-col items-end gap-y-2">
+            <NormalInputArea input={input} setInput={setInput} />
+            <div className="self-end font-semibold">
+              {index + 1} / {numSentences} 問目
+            </div>
+          </div>
           <Timer elapsedTime={elapsedTime} setElapsedTime={setElapsedTime} />
-        </>
+        </div>
       )}
-    </div>
+    </>
   )
 }
