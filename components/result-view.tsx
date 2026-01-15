@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button"
+import { recordScore } from "@/lib/record-score"
 import { Result } from "@/types/result"
+import { useEffect } from "react"
 
 type Props = {
   result: Result
@@ -7,6 +9,10 @@ type Props = {
 }
 
 export default function ResultView({ result, start }: Props) {
+  useEffect(() => {
+    recordScore(result)
+  }, [result])
+
   return (
     <div className="flex w-full flex-col items-center justify-center gap-y-4">
       <table className="[&_td]:px-4 [&_td]:py-2">
