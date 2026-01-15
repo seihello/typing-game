@@ -9,10 +9,11 @@ import { useEffect, useRef, useState } from "react"
 import { HashLoader } from "react-spinners"
 
 type Props = {
+  numSentences: number
   complete: (result: Result) => void
 }
 
-export default function SingleGame({ complete }: Props) {
+export default function SingleGame({ numSentences, complete }: Props) {
   const [target, setTarget] = useState<string[]>([])
   const [input, setInput] = useState("")
   const [index, setIndex] = useState(0)
@@ -24,11 +25,11 @@ export default function SingleGame({ complete }: Props) {
     ;(async () => {
       if (!isGeneratingSentences.current) {
         isGeneratingSentences.current = true
-        const sentence = await generateSentence(3)
+        const sentence = await generateSentence(numSentences)
         setTarget(sentence)
       }
     })()
-  }, [])
+  }, [numSentences])
 
   useEffect(() => {
     if (target.length === 0) return

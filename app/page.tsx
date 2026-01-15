@@ -11,8 +11,10 @@ type Status = "Start" | "InProgress" | "Result"
 export default function Home() {
   const [status, setStatus] = useState<Status>("Start")
   const [result, setResult] = useState<Result>()
+  const [numSentences, setNumSentences] = useState<number>(3)
 
-  const start = () => {
+  const start = (numSentences: number) => {
+    setNumSentences(numSentences)
     setStatus("InProgress")
   }
 
@@ -26,9 +28,9 @@ export default function Home() {
       {status === "Start" ? (
         <StartView start={start} />
       ) : status === "InProgress" ? (
-        <SingleGame complete={complete} />
+        <SingleGame numSentences={numSentences} complete={complete} />
       ) : status === "Result" && result ? (
-        <ResultView result={result} start={start} />
+        <ResultView result={result} start={() => start(numSentences)} />
       ) : null}
     </div>
   )
