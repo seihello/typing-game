@@ -35,24 +35,31 @@ export default function StartView({ start }: Props) {
             className="w-24 font-semibold"
           />
         </div>
-        <div className="flex flex-wrap justify-center gap-4">
-          {TOPICS.map((TOPIC, index) => (
-            <div key={index} className="flex items-center gap-x-2">
-              <Input
-                type="checkbox"
-                id={TOPIC}
-                name="topics"
-                value={TOPIC}
-                className="size-6"
-              />
-              <Label
-                htmlFor={TOPIC}
-                className="whitespace-nowrap text-lg font-semibold"
-              >
-                {TOPIC}
-              </Label>
-            </div>
-          ))}
+        <div className="flex flex-col items-center gap-y-4">
+          <p className="text-center font-semibold">
+            文章のジャンルを選択してください。
+            <br />
+            何もチェックしない場合はランダムで出題されます。
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            {TOPICS.map((TOPIC, index) => (
+              <div key={index} className="flex items-center gap-x-2">
+                <Input
+                  type="checkbox"
+                  id={TOPIC}
+                  name="topics"
+                  value={TOPIC}
+                  className="size-6"
+                />
+                <Label
+                  htmlFor={TOPIC}
+                  className="whitespace-nowrap text-lg font-semibold"
+                >
+                  {TOPIC}
+                </Label>
+              </div>
+            ))}
+          </div>
         </div>
         <Button size="lg" className="w-48">
           スタート
