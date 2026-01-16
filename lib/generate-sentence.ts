@@ -1,6 +1,6 @@
 "use server"
 
-import { CATEGORIES, TONES } from "@/constants"
+import { CATEGORIES, TONES, TOPICS } from "@/constants"
 import { getResponse } from "@/lib/gemini/get-response"
 import { shuffle } from "@/lib/utils/shuffle"
 
@@ -58,11 +58,11 @@ export async function generateSentence(numSentences: number, topics: string[]) {
 }
 
 function getRandomTopics(numSentences: number, topics: string[]) {
-  const shuffledTopics = shuffle(topics)
+  const shuffledTopics = shuffle(topics.length > 0 ? topics : TOPICS)
 
   const selectedTopics = shuffledTopics.slice(
     0,
-    Math.min(numSentences, topics.length),
+    Math.min(numSentences, shuffledTopics.length),
   )
 
   while (selectedTopics.length < numSentences) {
