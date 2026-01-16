@@ -41,7 +41,7 @@ export default function StartView({ start }: Props) {
             <br />
             何もチェックしない場合はランダムで出題されます。
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex max-w-3xl flex-wrap justify-center gap-4">
             {TOPICS.map((TOPIC, index) => (
               <div key={index} className="flex items-center gap-x-2">
                 <Input
