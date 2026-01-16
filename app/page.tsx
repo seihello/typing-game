@@ -12,11 +12,11 @@ export default function Home() {
   const [status, setStatus] = useState<Status>("Start")
   const [result, setResult] = useState<Result>()
   const [numSentences, setNumSentences] = useState<number>(3)
-  const [categories, setCategories] = useState<string[]>([])
+  const [topics, setTopics] = useState<string[]>([])
 
-  const start = (numSentences: number, categories: string[]) => {
+  const start = (numSentences: number, topics: string[]) => {
     setNumSentences(numSentences)
-    setCategories(categories)
+    setTopics(topics)
     setStatus("InProgress")
   }
 
@@ -40,7 +40,7 @@ export default function Home() {
       ) : status === "InProgress" ? (
         <SingleGame
           numSentences={numSentences}
-          categories={categories}
+          topics={topics}
           complete={complete}
         />
       ) : status === "Result" && result ? (

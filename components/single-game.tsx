@@ -10,15 +10,11 @@ import { HashLoader } from "react-spinners"
 
 type Props = {
   numSentences: number
-  categories: string[]
+  topics: string[]
   complete: (result: Result) => void
 }
 
-export default function SingleGame({
-  numSentences,
-  categories,
-  complete,
-}: Props) {
+export default function SingleGame({ numSentences, topics, complete }: Props) {
   const [target, setTarget] = useState<string[]>([])
   const [input, setInput] = useState("")
   const [index, setIndex] = useState(0)
@@ -31,11 +27,11 @@ export default function SingleGame({
       if (!isGeneratingSentences.current) {
         isGeneratingSentences.current = true
 
-        const sentence = await generateSentence(numSentences, categories)
+        const sentence = await generateSentence(numSentences, topics)
         setTarget(sentence)
       }
     })()
-  }, [numSentences, categories])
+  }, [numSentences, topics])
 
   useEffect(() => {
     if (target.length === 0) return

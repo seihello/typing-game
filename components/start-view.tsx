@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { CATEGORIES } from "@/constants"
+import { TOPICS } from "@/constants"
 
 type Props = {
-  start: (numSentences: number, categories: string[]) => void
+  start: (numSentences: number, topics: string[]) => void
 }
 
 export default function StartView({ start }: Props) {
@@ -14,9 +14,9 @@ export default function StartView({ start }: Props) {
     const formData = new FormData(e.currentTarget)
 
     const numSentences = Number(formData.get("numSentences"))
-    const categories = formData.getAll("categories") as string[]
+    const topics = formData.getAll("topics") as string[]
 
-    start(numSentences, categories)
+    start(numSentences, topics)
   }
 
   return (
@@ -36,20 +36,20 @@ export default function StartView({ start }: Props) {
           />
         </div>
         <div className="flex flex-wrap justify-center gap-4">
-          {CATEGORIES.map((CATEGORY, index) => (
+          {TOPICS.map((TOPIC, index) => (
             <div key={index} className="flex items-center gap-x-2">
               <Input
                 type="checkbox"
-                id={CATEGORY}
-                name="categories"
-                value={CATEGORY}
+                id={TOPIC}
+                name="topics"
+                value={TOPIC}
                 className="size-6"
               />
               <Label
-                htmlFor={CATEGORY}
+                htmlFor={TOPIC}
                 className="whitespace-nowrap text-lg font-semibold"
               >
-                {CATEGORY}
+                {TOPIC}
               </Label>
             </div>
           ))}

@@ -1,4 +1,4 @@
-export const CATEGORIES = [
+export const TOPICS = [
   "法律",
   "文学・ことば",
   "政治",
@@ -19,4 +19,23 @@ export const CATEGORIES = [
   "アニメ",
   "交通",
   "雑学",
+]
+
+export const TONES = ["フォーマル", "フォーマル", "フォーマル", "カジュアル"]
+
+export const CATEGORIES = [
+  "事実",
+  "事実",
+  "事実",
+  "事実",
+  "事実",
+  "ジョーク",
+  "ブラックジョーク",
+  "偏見",
+  "称賛",
+  "予想・推測",
+  "意見",
+  "疑問",
+  "願望",
+  "評価",
 ]
