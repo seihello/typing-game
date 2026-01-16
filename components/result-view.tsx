@@ -5,10 +5,10 @@ import { useEffect } from "react"
 
 type Props = {
   result: Result
-  start: () => void
+  restart: () => void
 }
 
-export default function ResultView({ result, start }: Props) {
+export default function ResultView({ result, restart }: Props) {
   useEffect(() => {
     recordScore(result)
   }, [result])
@@ -40,7 +40,7 @@ export default function ResultView({ result, start }: Props) {
         <h2 className="font-semibold">総合スコア</h2>
         <p className="text-6xl font-bold">{calcScore(result)}</p>
       </div>
-      <Button size="lg" className="w-60" onClick={() => start()}>
+      <Button size="lg" className="w-60" onClick={() => restart()}>
         もう一回プレイする
       </Button>
     </div>
