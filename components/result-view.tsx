@@ -6,15 +6,16 @@ import { useEffect } from "react"
 type Props = {
   result: Result
   restart: () => void
+  toTop: () => void
 }
 
-export default function ResultView({ result, restart }: Props) {
+export default function ResultView({ result, restart, toTop }: Props) {
   useEffect(() => {
     recordScore(result)
   }, [result])
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-y-4">
+    <div className="flex w-full flex-col items-center justify-center gap-y-8">
       <table className="[&_td]:px-4 [&_td]:py-2">
         <tr>
           <td className="text-right font-semibold">入力した文字数</td>
@@ -42,6 +43,9 @@ export default function ResultView({ result, restart }: Props) {
       </div>
       <Button size="lg" className="w-60" onClick={() => restart()}>
         もう一回プレイする
+      </Button>
+      <Button size="lg" className="w-60" onClick={() => toTop()}>
+        スタート画面に戻る
       </Button>
     </div>
   )

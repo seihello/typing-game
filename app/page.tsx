@@ -20,6 +20,10 @@ export default function Home() {
     setStatus("InProgress")
   }
 
+  const toTop = () => {
+    setStatus("Start")
+  }
+
   const restart = () => {
     setStatus("InProgress")
   }
@@ -44,7 +48,7 @@ export default function Home() {
           complete={complete}
         />
       ) : status === "Result" && result ? (
-        <ResultView result={result} restart={restart} />
+        <ResultView result={result} restart={restart} toTop={toTop} />
       ) : null}
     </div>
   )
