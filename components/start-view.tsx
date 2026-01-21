@@ -8,6 +8,15 @@ type Props = {
 }
 
 export default function StartView({ start }: Props) {
+  const toggleChecked = (checked: boolean) => {
+    const checkboxes = window.document.querySelectorAll(
+      'input[type="checkbox"]',
+    ) as NodeListOf<HTMLInputElement>
+    checkboxes.forEach((cb) => {
+      cb.checked = checked
+    })
+  }
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -41,6 +50,14 @@ export default function StartView({ start }: Props) {
             <br />
             何もチェックしない場合はランダムで出題されます。
           </p>
+          <div className="flex items-center gap-x-4">
+            <Button type="button" onClick={() => toggleChecked(true)}>
+              全選択
+            </Button>
+            <Button type="button" onClick={() => toggleChecked(false)}>
+              全解除
+            </Button>
+          </div>
           <div className="flex max-w-3xl flex-wrap justify-center gap-4">
             {TOPICS.map((TOPIC, index) => (
               <div key={index} className="flex items-center gap-x-2">
@@ -49,6 +66,7 @@ export default function StartView({ start }: Props) {
                   id={TOPIC}
                   name="topics"
                   value={TOPIC}
+                  defaultChecked={true}
                   className="size-6"
                 />
                 <Label
