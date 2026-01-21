@@ -2,12 +2,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { TOPICS } from "@/constants"
+import { useEffect, useState } from "react"
 
 type Props = {
   start: (numSentences: number, topics: string[]) => void
 }
 
 export default function StartView({ start }: Props) {
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([])
+  const [isLoadingSelectedTopics, setIsLoadingSelectedTopics] = useState(true)
+
   const toggleChecked = (checked: boolean) => {
     const checkboxes = window.document.querySelectorAll(
       'input[type="checkbox"]',
@@ -25,7 +29,20 @@ export default function StartView({ start }: Props) {
     const numSentences = Number(formData.get("numSentences"))
     const topics = formData.getAll("topics") as string[]
 
+    localStorage.setItem("topics", topics.join(","))
+
     start(numSentences, topics)
+  }
+
+  useEffect(() => {
+    const selectedTopics = localStorage.getItem("topics") ?? ""
+    setSelectedTopics(selectedTopics.split(","))
+
+    setIsLoadingSelectedTopics(false)
+  }, [])
+
+  if (isLoadingSelectedTopics) {
+    return
   }
 
   return (
@@ -66,7 +83,7 @@ export default function StartView({ start }: Props) {
                   id={TOPIC}
                   name="topics"
                   value={TOPIC}
-                  defaultChecked={true}
+                  defaultChecked={selectedTopics.includes(TOPIC)}
                   className="size-6"
                 />
                 <Label
