@@ -9,8 +9,9 @@ type Props = {
 }
 
 export default function StartView({ start }: Props) {
-  const [selectedTopics, setSelectedTopics] = useState<string[]>([])
-  const [isLoadingSelectedTopics, setIsLoadingSelectedTopics] = useState(true)
+  const [defaultNumSentences, setDefaultNumSentences] = useState(3)
+  const [defaultTopics, setDefaultTopics] = useState<string[]>([])
+  const [isLoadingUserSetting, setIsLoadingUserSetting] = useState(true)
 
   const toggleChecked = (checked: boolean) => {
     const checkboxes = window.document.querySelectorAll(
@@ -29,19 +30,25 @@ export default function StartView({ start }: Props) {
     const numSentences = Number(formData.get("numSentences"))
     const topics = formData.getAll("topics") as string[]
 
+    localStorage.setItem("numSentences", numSentences.toString())
     localStorage.setItem("topics", topics.join(","))
 
     start(numSentences, topics)
   }
 
   useEffect(() => {
-    const selectedTopics = localStorage.getItem("topics") ?? ""
-    setSelectedTopics(selectedTopics.split(","))
+    const defaultNumSentences = localStorage.getItem("numSentences")
+    if (defaultNumSentences && Number(defaultNumSentences) > 0) {
+      setDefaultNumSentences(Number(defaultNumSentences))
+    }
 
-    setIsLoadingSelectedTopics(false)
+    const defaultTopics = localStorage.getItem("topics") ?? ""
+    setDefaultTopics(defaultTopics.split(","))
+
+    setIsLoadingUserSetting(false)
   }, [])
 
-  if (isLoadingSelectedTopics) {
+  if (isLoadingUserSetting) {
     return
   }
 
@@ -57,7 +64,7 @@ export default function StartView({ start }: Props) {
           <Input
             type="number"
             name="numSentences"
-            defaultValue={3}
+            defaultValue={defaultNumSentences}
             className="w-24 font-semibold"
           />
         </div>
@@ -83,7 +90,7 @@ export default function StartView({ start }: Props) {
                   id={TOPIC}
                   name="topics"
                   value={TOPIC}
-                  defaultChecked={selectedTopics.includes(TOPIC)}
+                  defaultChecked={defaultTopics.includes(TOPIC)}
                   className="size-6"
                 />
                 <Label
