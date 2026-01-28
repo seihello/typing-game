@@ -95,7 +95,7 @@ export default function StartView({ start }: Props) {
                 htmlFor="all"
                 className="text-md grow whitespace-nowrap font-semibold hover:cursor-pointer"
               >
-                全て選択
+                全て
               </Label>
             </div>
             {TOPICS.map((TOPIC, index) => (
