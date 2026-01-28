@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { TOPICS } from "@/constants"
+import { CheckedState } from "@radix-ui/react-checkbox"
 import { useEffect, useState } from "react"
 
 type Props = {
@@ -11,17 +12,9 @@ type Props = {
 
 export default function StartView({ start }: Props) {
   const [defaultNumSentences, setDefaultNumSentences] = useState(3)
-  const [defaultTopics, setDefaultTopics] = useState<string[]>([])
+  const [allTopicsChecked, setAllTopicsChecked] = useState<boolean>(false)
+  const [checkedTopics, setCheckedTopics] = useState<string[]>([])
   const [isLoadingUserSetting, setIsLoadingUserSetting] = useState(true)
-
-  const toggleChecked = (checked: boolean) => {
-    const checkboxes = window.document.querySelectorAll(
-      'input[type="checkbox"]',
-    ) as NodeListOf<HTMLInputElement>
-    checkboxes.forEach((cb) => {
-      cb.checked = checked
-    })
-  }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -48,10 +41,14 @@ export default function StartView({ start }: Props) {
     }
 
     const defaultTopics = localStorage.getItem("topics") ?? ""
-    setDefaultTopics(defaultTopics.split(","))
+    setCheckedTopics(defaultTopics.split(","))
 
     setIsLoadingUserSetting(false)
   }, [])
+
+  useEffect(() => {
+    setAllTopicsChecked(checkedTopics.length === TOPICS.length)
+  }, [checkedTopics])
 
   if (isLoadingUserSetting) {
     return
@@ -79,15 +76,28 @@ export default function StartView({ start }: Props) {
             <br />
             何もチェックしない場合はランダムで出題されます。
           </p>
-          <div className="flex items-center gap-x-4">
-            <Button type="button" onClick={() => toggleChecked(true)}>
-              全選択
-            </Button>
-            <Button type="button" onClick={() => toggleChecked(false)}>
-              全解除
-            </Button>
-          </div>
           <div className="flex max-w-3xl flex-wrap justify-center gap-4">
+            <div className="flex w-40 items-center gap-x-2 rounded-md border bg-white p-1.5 text-primary">
+              <Checkbox
+                id="all"
+                className="size-5"
+                checked={allTopicsChecked}
+                onCheckedChange={(checked: CheckedState) => {
+                  setAllTopicsChecked(checked === true)
+                  if (checked) {
+                    setCheckedTopics(TOPICS)
+                  } else {
+                    setCheckedTopics([])
+                  }
+                }}
+              />
+              <Label
+                htmlFor="all"
+                className="text-md grow whitespace-nowrap font-semibold hover:cursor-pointer"
+              >
+                全て選択
+              </Label>
+            </div>
             {TOPICS.map((TOPIC, index) => (
               <div
                 key={index}
@@ -96,7 +106,20 @@ export default function StartView({ start }: Props) {
                 <Checkbox
                   id={TOPIC}
                   name={TOPIC}
-                  defaultChecked={defaultTopics.includes(TOPIC)}
+                  checked={checkedTopics.includes(TOPIC)}
+                  onCheckedChange={(checked: CheckedState) => {
+                    if (checked) {
+                      setCheckedTopics((prev) =>
+                        prev.includes(TOPIC) ? prev : [...prev, TOPIC],
+                      )
+                    } else {
+                      setCheckedTopics((prev) =>
+                        prev.includes(TOPIC)
+                          ? prev.filter((topic) => topic !== TOPIC)
+                          : prev,
+                      )
+                    }
+                  }}
                   className="size-5"
                 />
                 <Label
