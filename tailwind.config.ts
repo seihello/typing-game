@@ -22,7 +22,7 @@ const config: Config = {
         border: "#e5e7eb",
         input: "#e5e7eb",
         ring: "#002060", // same as primary
-        secondary: "#f3f4f6",
+        secondary: "#edb500",
         "secondary-foreground": "#111827",
         destructive: "#dd224f",
         "destructive-foreground": "#f9fafb",

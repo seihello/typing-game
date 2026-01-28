@@ -41,10 +41,20 @@ export default function ResultView({ result, restart, toTop }: Props) {
         <h2 className="font-semibold">総合スコア</h2>
         <p className="text-6xl font-bold">{calcScore(result)}</p>
       </div>
-      <Button size="lg" className="w-60" onClick={() => restart()}>
+      <Button
+        variant="secondary"
+        size="lg"
+        className="w-60"
+        onClick={() => restart()}
+      >
         もう一回プレイする
       </Button>
-      <Button size="lg" className="w-60" onClick={() => toTop()}>
+      <Button
+        variant="secondary"
+        size="lg"
+        className="w-60"
+        onClick={() => toTop()}
+      >
         スタート画面に戻る
       </Button>
     </div>

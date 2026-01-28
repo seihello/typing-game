@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { TOPICS } from "@/constants"
@@ -28,7 +29,11 @@ export default function StartView({ start }: Props) {
     const formData = new FormData(e.currentTarget)
 
     const numSentences = Number(formData.get("numSentences"))
-    const topics = formData.getAll("topics") as string[]
+    const topics = Array.from(formData.entries())
+      .filter(([, value]) => value === "on")
+      .map(([name]) => name)
+
+    console.log("topics", topics)
 
     localStorage.setItem("numSentences", numSentences.toString())
     localStorage.setItem("topics", topics.join(","))
@@ -84,18 +89,19 @@ export default function StartView({ start }: Props) {
           </div>
           <div className="flex max-w-3xl flex-wrap justify-center gap-4">
             {TOPICS.map((TOPIC, index) => (
-              <div key={index} className="flex items-center gap-x-2">
-                <Input
-                  type="checkbox"
+              <div
+                key={index}
+                className="flex w-40 items-center gap-x-2 rounded-md border bg-white p-1.5 text-primary"
+              >
+                <Checkbox
                   id={TOPIC}
-                  name="topics"
-                  value={TOPIC}
+                  name={TOPIC}
                   defaultChecked={defaultTopics.includes(TOPIC)}
-                  className="size-6"
+                  className="size-5"
                 />
                 <Label
                   htmlFor={TOPIC}
-                  className="whitespace-nowrap text-lg font-semibold"
+                  className="text-md grow whitespace-nowrap font-semibold hover:cursor-pointer"
                 >
                   {TOPIC}
                 </Label>
@@ -103,7 +109,7 @@ export default function StartView({ start }: Props) {
             ))}
           </div>
         </div>
-        <Button size="lg" className="w-48">
+        <Button variant="secondary" size="lg" className="w-48">
           スタート
         </Button>
       </form>
