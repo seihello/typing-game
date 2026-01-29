@@ -132,7 +132,7 @@ export default function StartView({ start }: Props) {
             ))}
           </div>
         </div>
-        <Button variant="secondary" size="lg" className="w-48">
+        <Button variant="secondary" size="xl" className="w-48">
           スタート
         </Button>
       </form>

@@ -43,7 +43,7 @@ export default function ResultView({ result, restart, toTop }: Props) {
       </div>
       <Button
         variant="secondary"
-        size="lg"
+        size="xl"
         className="w-60"
         onClick={() => restart()}
       >
@@ -51,7 +51,7 @@ export default function ResultView({ result, restart, toTop }: Props) {
       </Button>
       <Button
         variant="secondary"
-        size="lg"
+        size="xl"
         className="w-60"
         onClick={() => toTop()}
       >
