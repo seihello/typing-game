@@ -1,7 +1,6 @@
+import TopicOption from "@/components/topic-option"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { TOPICS } from "@/constants"
 import { CheckedState } from "@radix-ui/react-checkbox"
 import { useEffect, useState } from "react"
@@ -77,58 +76,43 @@ export default function StartView({ start }: Props) {
             何もチェックしない場合はランダムで出題されます。
           </p>
           <div className="flex max-w-3xl flex-wrap justify-center gap-4">
-            <div className="flex w-40 items-center gap-x-2 rounded-md border bg-white p-1.5 text-primary">
-              <Checkbox
-                id="all"
-                className="size-5"
-                checked={allTopicsChecked}
+            <TopicOption
+              id="all"
+              checked={allTopicsChecked}
+              onCheckedChange={(checked: CheckedState) => {
+                setAllTopicsChecked(checked === true)
+                if (checked) {
+                  setCheckedTopics(TOPICS)
+                } else {
+                  setCheckedTopics([])
+                }
+              }}
+            >
+              全て
+            </TopicOption>
+
+            {TOPICS.map((TOPIC, index) => (
+              <TopicOption
+                key={index}
+                id={TOPIC}
+                name={TOPIC}
+                checked={checkedTopics.includes(TOPIC)}
                 onCheckedChange={(checked: CheckedState) => {
-                  setAllTopicsChecked(checked === true)
                   if (checked) {
-                    setCheckedTopics(TOPICS)
+                    setCheckedTopics((prev) =>
+                      prev.includes(TOPIC) ? prev : [...prev, TOPIC],
+                    )
                   } else {
-                    setCheckedTopics([])
+                    setCheckedTopics((prev) =>
+                      prev.includes(TOPIC)
+                        ? prev.filter((topic) => topic !== TOPIC)
+                        : prev,
+                    )
                   }
                 }}
-              />
-              <Label
-                htmlFor="all"
-                className="text-md grow whitespace-nowrap font-semibold hover:cursor-pointer"
               >
-                全て
-              </Label>
-            </div>
-            {TOPICS.map((TOPIC, index) => (
-              <div
-                key={index}
-                className="flex w-40 items-center gap-x-2 rounded-md border bg-white p-1.5 text-primary"
-              >
-                <Checkbox
-                  id={TOPIC}
-                  name={TOPIC}
-                  checked={checkedTopics.includes(TOPIC)}
-                  onCheckedChange={(checked: CheckedState) => {
-                    if (checked) {
-                      setCheckedTopics((prev) =>
-                        prev.includes(TOPIC) ? prev : [...prev, TOPIC],
-                      )
-                    } else {
-                      setCheckedTopics((prev) =>
-                        prev.includes(TOPIC)
-                          ? prev.filter((topic) => topic !== TOPIC)
-                          : prev,
-                      )
-                    }
-                  }}
-                  className="size-5"
-                />
-                <Label
-                  htmlFor={TOPIC}
-                  className="text-md grow whitespace-nowrap font-semibold hover:cursor-pointer"
-                >
-                  {TOPIC}
-                </Label>
-              </div>
+                {TOPIC}
+              </TopicOption>
             ))}
           </div>
         </div>
