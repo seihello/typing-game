@@ -34,7 +34,7 @@ export default function Home() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center px-4 py-8 text-white">
+    <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-4 py-8 text-white">
       {status === "Start" ? (
         <StartView
           // numSentences={numSentences}
