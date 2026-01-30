@@ -1,3 +1,5 @@
+export const MAX_SENTENCES = 30
+
 export const TOPICS = [
   "文学・ことば",
   "法律",
