@@ -6,7 +6,7 @@ type Props = CheckboxProps & { children: React.ReactNode }
 
 export default function TopicOption({ children, ...props }: Props) {
   return (
-    <div className="flex w-40 items-center gap-x-2 rounded-md border bg-white p-1.5 text-primary">
+    <Label className="flex w-40 items-center gap-x-2 rounded-md border bg-white p-1.5 text-primary hover:cursor-pointer">
       <Checkbox id="all" className="size-5" {...props} />
       <Label
         htmlFor={props.id}
@@ -14,6 +14,6 @@ export default function TopicOption({ children, ...props }: Props) {
       >
         {children}
       </Label>
-    </div>
+    </Label>
   )
 }
