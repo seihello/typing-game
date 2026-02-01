@@ -72,6 +72,7 @@ export default function StartView({ start }: Props) {
               onClick={() =>
                 setNumSentences((prev) => (prev > 1 ? prev - 1 : prev))
               }
+              disabled={numSentences <= 1}
               className="shadow-0 flex size-8 items-center justify-center rounded-full border-2 border-white p-0 text-xs font-bold hover:bg-primary hover:text-white"
             >
               <IconChevronLeft size={16} stroke={3} />
@@ -84,17 +85,17 @@ export default function StartView({ start }: Props) {
               type="number"
               name="numSentences"
               value={numSentences}
-              // onChange={(e) => setNumSentences(Number(e.target.value))}
               className="hidden w-auto border-none font-semibold md:text-xl"
               hidden
             />
             <Button
               type="button"
-              onClick={() =>
+              onClick={() => {
                 setNumSentences((prev) =>
                   prev < MAX_SENTENCES ? prev + 1 : prev,
                 )
-              }
+              }}
+              disabled={numSentences >= MAX_SENTENCES}
               className="shadow-0 flex size-8 items-center justify-center rounded-full border-2 border-white p-0 text-xs font-bold hover:bg-primary hover:text-white"
             >
               <IconChevronRight size={16} stroke={3} />
