@@ -27,7 +27,5 @@ export default function Timer({ elapsedTime, setElapsedTime }: Props) {
     `${String(seconds).padStart(2, "0")}.` +
     `${String(centiseconds).padStart(2, "0")}`
 
-  return (
-    <div style={{ fontFamily: "monospace", fontSize: "2rem" }}>{formatted}</div>
-  )
+  return <div className="font-martian text-2xl">{formatted}</div>
 }

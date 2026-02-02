@@ -10,8 +10,8 @@ const config: Config = {
   theme: {
     fontFamily: {
       sans: ["var(--font-sans)", ...fontFamily.sans],
-      rajdhani: ["var(--font-rajdhani)"],
-      roboto: ["var(--font-roboto)"],
+      geist: ["var(--font-geist-sans)"],
+      martian: ["var(--font-martian-mono)"],
     },
     extend: {
       colors: {

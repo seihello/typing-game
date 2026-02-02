@@ -5,24 +5,41 @@ import { useResult } from "@/contexts/result"
 import { recordScore } from "@/lib/record-score"
 import { Result } from "@/types/result"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function ScorePage() {
   const router = useRouter()
 
   const { result } = useResult()
 
+  const [score, setScore] = useState(-1)
+  const [displayScore, setDisplayScore] = useState(0)
+
   useEffect(() => {
     if (!result) {
       router.push("/")
       return
     }
+
     recordScore(result)
+
+    setScore(calcScore(result))
   }, [result, router])
 
-  if (!result) return
+  useEffect(() => {
+    if (score < 0) return
 
-  const { score, grade } = calcScore(result)
+    // const d = Math.floor(score / 100)
+    const d = 9
+
+    const timerId = setInterval(() => {
+      setDisplayScore((prev) => (prev + d < score ? prev + d : score))
+    }, 1)
+
+    return () => clearInterval(timerId)
+  }, [score])
+
+  if (!result) return
 
   return (
     <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-4 py-8 text-white">
@@ -45,58 +62,46 @@ export default function ScorePage() {
                 {result.elapsedTime > 0
                   ? (result.wordCount / (result.elapsedTime / 1000)).toFixed(1)
                   : ""}
-                文字 / 秒
+                文字/秒
               </td>
             </tr>
           </table>
           <div className="flex flex-col items-center gap-y-2">
             <h2 className="font-semibold">総合スコア</h2>
-            <p className="text-7xl font-bold tracking-wide">{score}</p>
+            <p className="font-martian text-7xl font-bold tracking-wide">
+              {displayScore}
+            </p>
           </div>
         </div>
-        <Button
-          variant="secondary"
-          size="xl"
-          className="w-60"
-          onClick={() => router.push("/play")}
-        >
-          もう一回プレイする
-        </Button>
-        <Button
-          variant="secondary"
-          size="xl"
-          className="w-60"
-          onClick={() => router.push("/")}
-        >
-          スタート画面に戻る
-        </Button>
+        <div className="flex flex-col items-center gap-y-8">
+          <Button
+            variant="secondary"
+            size="xl"
+            className="w-60"
+            onClick={() => router.push("/play")}
+          >
+            もう一回プレイする
+          </Button>
+          <Button
+            variant="secondary"
+            size="xl"
+            className="w-60"
+            onClick={() => router.push("/")}
+          >
+            スタート画面に戻る
+          </Button>
+        </div>
       </div>
     </div>
   )
 }
 
-function calcScore(result: Result): { score: number; grade: string } {
+function calcScore(result: Result): number {
   const timeInSeconds = result.elapsedTime / 1000
-  // const wordPerSecond = result.wordCount / timeInSeconds
 
   const kps = result.wordCount / timeInSeconds
 
   const score = Math.floor(kps * result.wordCount * 9)
 
-  let grade = ""
-  if (score > 10000) {
-    grade = "S"
-  } else if (score > 8000) {
-    grade = "A"
-  } else if (score > 6000) {
-    grade = "B"
-  } else if (score > 4000) {
-    grade = "C"
-  } else if (score > 2000) {
-    grade = "D"
-  } else {
-    grade = "E"
-  }
-
-  return { score, grade }
+  return score
 }

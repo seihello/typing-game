@@ -85,7 +85,7 @@ export default function Home() {
                 <IconChevronLeft size={16} stroke={3} />
               </Button>
 
-              <div className="w-10 text-center text-lg font-semibold">
+              <div className="font-martian w-10 text-center text-lg font-semibold">
                 {numSentences}
               </div>
               <Input
