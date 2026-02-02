@@ -91,7 +91,8 @@ export default function Home() {
               <Input
                 type="number"
                 name="numSentences"
-                defaultValue={numSentences}
+                value={numSentences}
+                onChange={(e) => e.preventDefault()}
                 className="hidden w-auto border-none font-semibold md:text-xl"
                 hidden
               />
