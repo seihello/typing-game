@@ -11,7 +11,7 @@ const config: Config = {
     fontFamily: {
       sans: ["var(--font-sans)", ...fontFamily.sans],
       geist: ["var(--font-geist-sans)"],
-      martian: ["var(--font-martian-mono)"],
+      azeret: ["var(--font-azeret-mono)"],
     },
     extend: {
       colors: {

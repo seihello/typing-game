@@ -29,12 +29,12 @@ export default function ScorePage() {
   useEffect(() => {
     if (score < 0) return
 
-    // const d = Math.floor(score / 100)
-    const d = 9
+    const d = Math.floor(score / 200)
+    // const d = 9
 
     const timerId = setInterval(() => {
       setDisplayScore((prev) => (prev + d < score ? prev + d : score))
-    }, 1)
+    }, 5)
 
     return () => clearInterval(timerId)
   }, [score])
@@ -76,7 +76,7 @@ export default function ScorePage() {
           </table>
           <div className="flex flex-col items-center gap-y-2">
             <h2 className="font-semibold">総合スコア</h2>
-            <p className="font-martian text-7xl font-bold tracking-wide">
+            <p className="font-azeret text-7xl font-bold tracking-wide">
               {displayScore}
             </p>
           </div>

@@ -1,7 +1,7 @@
 import { ResultProvider } from "@/contexts/result"
 import { SettingsProvider } from "@/contexts/settings"
 import type { Metadata } from "next"
-import { Geist, Martian_Mono } from "next/font/google"
+import { Azeret_Mono, Geist } from "next/font/google"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -15,8 +15,8 @@ const geistSans = Geist({
   subsets: ["latin"],
 })
 
-const martianMono = Martian_Mono({
-  variable: "--font-martian-mono",
+const azeretMono = Azeret_Mono({
+  variable: "--font-azeret-mono",
   display: "swap",
   subsets: ["latin"],
 })
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${martianMono.variable} bg-primary antialiased`}
+        className={`${geistSans.variable} ${azeretMono.variable} bg-primary antialiased`}
       >
         <main className="font-geist">
           <SettingsProvider>
