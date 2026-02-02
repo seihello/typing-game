@@ -7,7 +7,6 @@ export async function getResponse(request: string) {
     model: "gemini-2.5-flash",
     contents: request,
   })
-  console.log(response)
 
   if (!response.text) {
     throw new Error("Response Undefined")

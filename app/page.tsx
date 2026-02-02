@@ -32,8 +32,6 @@ export default function Home() {
       .filter(([, value]) => value === "on")
       .map(([name]) => name)
 
-    console.log("topics", topics)
-
     localStorage.setItem("numSentences", numSentences.toString())
     localStorage.setItem("topics", topics.join(","))
 
@@ -93,7 +91,7 @@ export default function Home() {
               <Input
                 type="number"
                 name="numSentences"
-                value={numSentences}
+                defaultValue={numSentences}
                 className="hidden w-auto border-none font-semibold md:text-xl"
                 hidden
               />

@@ -75,8 +75,6 @@ export default function PlayView() {
     return
   }
 
-  // console.log("target", target)
-
   return (
     <div
       className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-4 py-8 text-white"

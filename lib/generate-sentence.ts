@@ -44,10 +44,7 @@ export async function generateSentence(numSentences: number, topics: string[]) {
     </sentences>
   `
 
-  console.log("prompt", prompt)
-
   const response = await getResponse(prompt)
-  console.log("response", response)
 
   const matches = [...response.matchAll(/<sentence>([^<]*)<\/sentence>/g)]
   const sentences = matches.map((m) => m[1].trim())
