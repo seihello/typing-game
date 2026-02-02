@@ -1,3 +1,5 @@
+import { ResultProvider } from "@/contexts/result"
+import { SettingsProvider } from "@/contexts/settings"
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
 import "./globals.css"
@@ -21,7 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.className} bg-primary antialiased`}>
-        <main>{children}</main>
+        <main>
+          <SettingsProvider>
+            <ResultProvider>{children}</ResultProvider>
+          </SettingsProvider>
+        </main>
       </body>
     </html>
   )
