@@ -48,21 +48,29 @@ export default function ScorePage() {
           <table className="[&_td]:px-4 [&_td]:py-2">
             <tr>
               <td className="text-right font-semibold">入力した文字数</td>
-              <td className="text-2xl font-bold">{result.wordCount}字</td>
+              <td className="text-2xl font-bold">
+                <span>{result.wordCount}</span>
+                <span className="ml-1">字</span>
+              </td>
             </tr>
             <tr>
               <td className="text-right font-semibold">かかった時間</td>
               <td className="text-2xl font-bold">
-                {(result.elapsedTime / 1000).toFixed(1)}秒
+                <span>{(result.elapsedTime / 1000).toFixed(1)}</span>
+                <span className="ml-1">秒</span>
               </td>
             </tr>
             <tr>
               <td className="text-right font-semibold">平均タイプ数</td>
               <td className="text-2xl font-bold">
-                {result.elapsedTime > 0
-                  ? (result.wordCount / (result.elapsedTime / 1000)).toFixed(1)
-                  : ""}
-                文字/秒
+                <span>
+                  {result.elapsedTime > 0
+                    ? (result.wordCount / (result.elapsedTime / 1000)).toFixed(
+                        1,
+                      )
+                    : ""}
+                </span>
+                <span className="ml-1">文字/秒</span>
               </td>
             </tr>
           </table>

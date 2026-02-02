@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${martianMono.variable} bg-primary antialiased`}
       >
-        <main>
+        <main className="font-geist">
           <SettingsProvider>
             <ResultProvider>{children}</ResultProvider>
           </SettingsProvider>
