@@ -4,16 +4,50 @@ import { Button } from "@/components/ui/button"
 import { useResult } from "@/contexts/result"
 import { recordScore } from "@/lib/record-score"
 import { Result } from "@/types/result"
+import confetti, { Options } from "canvas-confetti"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function ScorePage() {
   const router = useRouter()
 
   const { result } = useResult()
 
-  const [score, setScore] = useState(-1)
+  const [score, setScore] = useState<number>()
   const [displayScore, setDisplayScore] = useState(0)
+
+  const isConfettiFalling = useRef(false)
+
+  useEffect(() => {
+    if (!score) return
+
+    if (isConfettiFalling.current) return
+    isConfettiFalling.current = true
+
+    const options: Options = {
+      scalar: 0.8,
+      particleCount: Math.max(Math.floor(score / 100), 30),
+      spread: 100,
+      angle: 270,
+      ticks: 400,
+    }
+
+    confetti({
+      ...options,
+      origin: {
+        x: 0.2,
+        y: -0.7,
+      },
+    })
+
+    confetti({
+      ...options,
+      origin: {
+        x: 0.8,
+        y: -0.7,
+      },
+    })
+  }, [score])
 
   useEffect(() => {
     if (!result) {
@@ -27,7 +61,7 @@ export default function ScorePage() {
   }, [result, router])
 
   useEffect(() => {
-    if (score < 0) return
+    if (!score) return
 
     const d = Math.floor(score / 200)
     // const d = 9
@@ -42,7 +76,7 @@ export default function ScorePage() {
   if (!result) return
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-3xl flex-col items-center px-4 py-8 text-white">
+    <div className="relative mx-auto flex min-h-screen max-w-3xl flex-col items-center px-4 py-8 text-white">
       <div className="flex w-full flex-col items-center justify-center gap-y-12">
         <div className="space-y-8">
           <table className="[&_td]:px-4 [&_td]:py-2">
