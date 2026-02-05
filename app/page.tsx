@@ -16,6 +16,7 @@ export default function Home() {
   const { setSettings } = useSettings()
 
   const [allTopicsChecked, setAllTopicsChecked] = useState<boolean>(false)
+  const [userTopicChecked, setUserTopicChecked] = useState<boolean>(false)
   const [checkedTopics, setCheckedTopics] = useState<string[]>([])
   const [isLoadingUserSetting, setIsLoadingUserSetting] = useState(true)
   const [numSentences, setNumSentences] = useState(3)
@@ -31,9 +32,19 @@ export default function Home() {
     const topics = Array.from(formData.entries())
       .filter(([, value]) => value === "on")
       .map(([name]) => name)
+    const userTopic = userTopicChecked
+      ? (formData.get("user")?.toString() ?? "")
+      : ""
 
     localStorage.setItem("numSentences", numSentences.toString())
     localStorage.setItem("topics", topics.join(","))
+    if (userTopicChecked) {
+      localStorage.setItem("userTopic", userTopic)
+    }
+
+    if (userTopic) {
+      topics.push(userTopic)
+    }
 
     setSettings({ numSentences, topics })
 
@@ -85,7 +96,7 @@ export default function Home() {
                 <IconChevronLeft size={16} stroke={3} />
               </Button>
 
-              <div className="font-azeret w-10 text-center text-lg font-semibold">
+              <div className="w-10 text-center font-azeret text-lg font-semibold">
                 {numSentences}
               </div>
               <Input
@@ -153,6 +164,24 @@ export default function Home() {
                   {TOPIC}
                 </TopicOption>
               ))}
+
+              <div className="flex w-full items-center gap-x-4">
+                <TopicOption
+                  id="user"
+                  checked={userTopicChecked}
+                  onCheckedChange={(checked: CheckedState) => {
+                    setUserTopicChecked(checked === true)
+                  }}
+                >
+                  マイジャンル
+                </TopicOption>
+                <Input
+                  name="user"
+                  placeholder="左のボタンをチェックして、好きなジャンルを入力してください..."
+                  className="flex-1"
+                  disabled={!userTopicChecked}
+                />
+              </div>
             </div>
             <p className="w-full text-center text-sm">
               ※何もチェックしない場合はランダムで出題されます。
