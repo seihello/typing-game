@@ -20,6 +20,7 @@ export default function Home() {
   const [checkedTopics, setCheckedTopics] = useState<string[]>([])
   const [isLoadingUserSetting, setIsLoadingUserSetting] = useState(true)
   const [numSentences, setNumSentences] = useState(3)
+  const [userTopic, setUserTopic] = useState("")
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,17 +33,14 @@ export default function Home() {
     const topics = Array.from(formData.entries())
       .filter(([, value]) => value === "on")
       .map(([name]) => name)
-    const userTopic = userTopicChecked
-      ? (formData.get("user")?.toString() ?? "")
-      : ""
 
     localStorage.setItem("numSentences", numSentences.toString())
     localStorage.setItem("topics", topics.join(","))
-    if (userTopicChecked) {
-      localStorage.setItem("userTopic", userTopic)
-    }
 
-    if (userTopic) {
+    localStorage.setItem("userTopicChecked", userTopicChecked ? "on" : "off")
+    localStorage.setItem("userTopic", userTopic)
+
+    if (userTopicChecked && userTopic) {
       topics.push(userTopic)
     }
 
@@ -59,6 +57,12 @@ export default function Home() {
 
     const defaultTopics = localStorage.getItem("topics") ?? ""
     setCheckedTopics(defaultTopics.split(","))
+
+    setUserTopic(localStorage.getItem("userTopic") ?? "")
+
+    if (localStorage.getItem("userTopicChecked") === "on") {
+      setUserTopicChecked(true)
+    }
 
     setIsLoadingUserSetting(false)
   }, [])
@@ -177,9 +181,11 @@ export default function Home() {
                 </TopicOption>
                 <Input
                   name="user"
+                  value={userTopic}
+                  onChange={(e) => setUserTopic(e.target.value)}
+                  disabled={!userTopicChecked}
                   placeholder="左のボタンをチェックして、好きなジャンルを入力してください..."
                   className="flex-1"
-                  disabled={!userTopicChecked}
                 />
               </div>
             </div>
