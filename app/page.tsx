@@ -1,6 +1,7 @@
 "use client"
 
 import TopicOption from "@/components/topic-option"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { MAX_SENTENCES, TOPICS } from "@/constants"
@@ -177,6 +178,15 @@ export default function Home() {
                     setUserTopicChecked(checked === true)
                   }}
                 >
+                  <Badge
+                    className="absolute right-2 top-1 -translate-y-1/2 translate-x-1/2 rounded-full px-2"
+                    style={{
+                      background:
+                        "linear-gradient(90deg,rgba(168, 24, 240, 1) 0%, rgba(237, 83, 191, 1) 100%)",
+                    }}
+                  >
+                    New
+                  </Badge>
                   マイジャンル
                 </TopicOption>
                 <Input
