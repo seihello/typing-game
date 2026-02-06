@@ -25,6 +25,7 @@ export default function PlayView() {
   const [elapsedTime, setElapsedTime] = useState(0)
 
   const isGeneratingSentences = useRef(false)
+  const [isFinished, setIsFinished] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -51,6 +52,8 @@ export default function PlayView() {
 
     if (input === target[index]) {
       if (index === target.length - 1) {
+        setIsFinished(true)
+
         const wordCount = target.reduce(
           (sum, sentence) => sum + sentence.length,
           0,
@@ -83,6 +86,11 @@ export default function PlayView() {
       {target.length === 0 ? (
         <div className="flex h-64 w-full flex-col items-center justify-center gap-y-8">
           <p className="text-xl font-semibold">文章を作成中...</p>
+          <HashLoader size={64} color="#FFFFFF" />
+        </div>
+      ) : isFinished ? (
+        <div className="flex h-64 w-full flex-col items-center justify-center gap-y-8">
+          <p className="text-xl font-semibold">スコアを計算中...</p>
           <HashLoader size={64} color="#FFFFFF" />
         </div>
       ) : (
