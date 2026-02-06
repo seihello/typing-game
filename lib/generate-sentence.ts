@@ -18,7 +18,7 @@ export async function generateSentence(numSentences: number, topics: string[]) {
     <tone>タグは、文章のフォーマル度や口調です。
     <category>タグは、文章の種類です。
     文章の内容は、具体的にしてください。
-    できるだけ句点の数は文末の1つで済むような自然な文章にしてください。読点は複数あっても問題ないです。
+    句点の数は文末の1つで済むような自然な文章にしてください。読点は複数あっても問題ないです。
     句読点以外の記号を含めないでください。
 
     <sentences>
