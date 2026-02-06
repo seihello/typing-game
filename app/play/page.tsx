@@ -5,9 +5,10 @@ import TargetSentence from "@/components/target-sentence"
 import Timer from "@/components/timer"
 import { useResult } from "@/contexts/result"
 import { useSettings } from "@/contexts/settings"
+import { calcScore } from "@/lib/calc-score"
 import { generateSentence } from "@/lib/generate-sentence"
 import { usePathname, useRouter } from "next/navigation"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { HashLoader } from "react-spinners"
 
 export default function PlayView() {
@@ -74,6 +75,36 @@ export default function PlayView() {
     }
   }, [index])
 
+  const wordCountOfFinishedSentences = useMemo(() => {
+    return target
+      .slice(0, index)
+      .reduce((sum, sentence) => sum + sentence.length, 0)
+  }, [index, target])
+
+  const wordCountOfCurrentSentence = useMemo(() => {
+    if (target.length <= index) return 0
+
+    const len = Math.min(target[index].length, input.length)
+
+    let count = 0
+    for (let i = 0; i < len; i++) {
+      if (target[index][i] === input[i]) {
+        count++
+      } else {
+        break
+      }
+    }
+
+    return count
+  }, [index, input, target])
+
+  const currentWordCount =
+    wordCountOfFinishedSentences + wordCountOfCurrentSentence
+  const currentScore = calcScore({
+    elapsedTime,
+    wordCount: currentWordCount,
+  })
+
   if (!settings) {
     return
   }
@@ -103,6 +134,8 @@ export default function PlayView() {
             </div>
           </div>
           <Timer elapsedTime={elapsedTime} setElapsedTime={setElapsedTime} />
+          <div>{currentWordCount}</div>
+          <div>{currentScore}</div>
         </div>
       )}
     </div>
