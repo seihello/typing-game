@@ -12,12 +12,13 @@ export async function generateSentence(numSentences: number, topics: string[]) {
   const selectedCategories = getRandomCategories(numSentences)
 
   const prompt = `
-    50文字以上60文字未満で、日本語の例文を${numSentences}個考えてください。
+    50文字以上60文字未満の日本語の例文を、${numSentences}個作ってください。
     下記のXMLフォーマットの<sentence>タグ内に指定した条件を基に文章を生成してください。
     <topic>タグは、文章のテーマ・ジャンルです。
     <tone>タグは、文章のフォーマル度や口調です。
     <category>タグは、文章の種類です。
-    文章の内容は、具体的にしてください。
+    文章の内容は、抽象的な内容ではなく、踏み込んだ内容かつコアな内容で具体的にしてください。
+    ただし、虚偽の内容、信頼性に欠ける内容は含めないでください。
     句点の数は文末の1つで済むような自然な文章にしてください。読点は複数あっても問題ないです。
     句読点以外の記号を含めないでください。
 
