@@ -134,8 +134,27 @@ export default function PlayView() {
             </div>
           </div>
           <Timer elapsedTime={elapsedTime} setElapsedTime={setElapsedTime} />
-          <div>{currentWordCount}</div>
-          <div>{currentScore}</div>
+          <div className="w-full space-y-2">
+            <h5 className="w-full text-center">現在のスコア</h5>
+            <div className="flex w-full items-center gap-x-4">
+              <div
+                className="relative h-4 w-full overflow-hidden rounded-md shadow-gray-500"
+                style={{
+                  boxShadow: "0px 0px 10px 1px #4e5ec5",
+                }}
+              >
+                <div
+                  className="absolute left-0 top-0 h-full bg-green-500"
+                  style={{
+                    width: `${Math.min((currentScore / 10000) * 100, 100)}%`,
+                  }}
+                />
+              </div>
+              <div className="w-16 text-right font-azeret text-lg font-semibold">
+                {currentScore}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
