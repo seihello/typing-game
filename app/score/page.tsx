@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import { useResult } from "@/contexts/result"
+import { calcScore } from "@/lib/calc-score"
 import { recordScore } from "@/lib/record-score"
-import { Result } from "@/types/result"
 import confetti, { Options } from "canvas-confetti"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
@@ -136,14 +136,4 @@ export default function ScorePage() {
       </div>
     </div>
   )
-}
-
-function calcScore(result: Result): number {
-  const timeInSeconds = result.elapsedTime / 1000
-
-  const kps = result.wordCount / timeInSeconds
-
-  const score = Math.floor(kps * result.wordCount * 9)
-
-  return score
 }
