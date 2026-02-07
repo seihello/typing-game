@@ -57,7 +57,11 @@ export default function Home() {
     }
 
     const defaultTopics = localStorage.getItem("topics") ?? ""
-    setCheckedTopics(defaultTopics.split(","))
+    if (defaultTopics) {
+      setCheckedTopics(defaultTopics.split(","))
+    } else {
+      setCheckedTopics(TOPICS)
+    }
 
     setUserTopic(localStorage.getItem("userTopic") ?? "")
 
